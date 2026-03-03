@@ -30,16 +30,14 @@ export default function AddResume() {
 
   if (mode === "paste") {
     return (
-      <div className="mx-auto max-w-2xl">
-        <div className="mb-6 flex gap-2">
-          <button
-            className="rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-medium text-white"
-          >
+      <div className="mx-auto max-w-2xl animate-fade-in">
+        <div className="mb-8 flex gap-2">
+          <button className="rounded-lg bg-neon px-4 py-2 text-sm font-semibold text-base-950 shadow-[0_0_12px_rgba(0,240,255,0.15)]">
             Paste Text
           </button>
           <button
             onClick={() => setMode("upload")}
-            className="rounded-md bg-gray-100 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-200"
+            className="rounded-lg border border-base-600 bg-base-800 px-4 py-2 text-sm font-medium text-base-200 hover:bg-base-700 hover:border-base-500 transition-all duration-200"
           >
             Upload File
           </button>
@@ -76,36 +74,34 @@ export default function AddResume() {
   }
 
   return (
-    <div className="mx-auto max-w-2xl">
-      <div className="mb-6 flex gap-2">
+    <div className="mx-auto max-w-2xl animate-fade-in">
+      <div className="mb-8 flex gap-2">
         <button
           onClick={() => setMode("paste")}
-          className="rounded-md bg-gray-100 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-200"
+          className="rounded-lg border border-base-600 bg-base-800 px-4 py-2 text-sm font-medium text-base-200 hover:bg-base-700 hover:border-base-500 transition-all duration-200"
         >
           Paste Text
         </button>
-        <button
-          className="rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-medium text-white"
-        >
+        <button className="rounded-lg bg-neon px-4 py-2 text-sm font-semibold text-base-950 shadow-[0_0_12px_rgba(0,240,255,0.15)]">
           Upload File
         </button>
       </div>
 
-      <h1 className="mb-6 text-2xl font-bold text-gray-900">
+      <h1 className="mb-8 font-display text-3xl font-bold text-base-50">
         Upload Resume File
       </h1>
 
       {error && (
-        <div className="mb-4 rounded-md bg-red-50 p-4 text-sm text-red-700">
+        <div className="mb-6 rounded-xl border border-rose-accent/30 bg-rose-accent/10 p-4 text-sm text-rose-accent">
           {error}
         </div>
       )}
 
-      <form onSubmit={handleFileSubmit} className="space-y-4">
+      <form onSubmit={handleFileSubmit} className="space-y-6">
         <div>
           <label
             htmlFor="candidate_name"
-            className="mb-1 block text-sm font-medium text-gray-700"
+            className="mb-2 block text-sm font-medium text-base-200"
           >
             Candidate Name
           </label>
@@ -116,14 +112,14 @@ export default function AddResume() {
             onChange={(e) => setCandidateName(e.target.value)}
             placeholder="e.g. Jane Doe"
             required
-            className="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none"
+            className="w-full rounded-xl border border-base-600 bg-base-800 px-4 py-3 text-sm text-base-50 placeholder-base-400 focus:border-neon focus:ring-1 focus:ring-neon/30 focus:outline-none transition-all duration-200"
           />
         </div>
 
         <div>
           <label
             htmlFor="file"
-            className="mb-1 block text-sm font-medium text-gray-700"
+            className="mb-2 block text-sm font-medium text-base-200"
           >
             Resume File (PDF or DOCX)
           </label>
@@ -133,14 +129,14 @@ export default function AddResume() {
             accept=".pdf,.docx"
             onChange={(e) => setFile(e.target.files?.[0] ?? null)}
             required
-            className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-700 file:mr-4 file:rounded-md file:border-0 file:bg-indigo-50 file:px-4 file:py-2 file:text-sm file:font-medium file:text-indigo-700 hover:file:bg-indigo-100"
+            className="w-full rounded-xl border border-base-600 bg-base-800 px-4 py-3 text-sm text-base-200 file:mr-4 file:rounded-lg file:border-0 file:bg-neon/10 file:px-4 file:py-2 file:text-sm file:font-medium file:text-neon hover:file:bg-neon/20 transition-all duration-200"
           />
         </div>
 
         <button
           type="submit"
           disabled={uploading}
-          className="w-full rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-50"
+          className="w-full rounded-xl bg-neon px-5 py-3 text-sm font-semibold text-base-950 hover:bg-neon-dim transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50 shadow-[0_0_20px_rgba(0,240,255,0.15)] hover:shadow-[0_0_30px_rgba(0,240,255,0.25)]"
         >
           {uploading ? "Uploading..." : "Upload Resume"}
         </button>

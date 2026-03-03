@@ -1,1 +1,192 @@
 @import "tailwindcss";
+
+/* ─── Theme Tokens ─── */
+@theme {
+  --color-base-950: #06080d;
+  --color-base-900: #0b0d14;
+  --color-base-800: #10131c;
+  --color-base-700: #161a26;
+  --color-base-600: #1e2233;
+  --color-base-500: #2a2f42;
+  --color-base-400: #3d4259;
+  --color-base-300: #6b7194;
+  --color-base-200: #9499b3;
+  --color-base-100: #c5c8d8;
+  --color-base-50: #e8e9f0;
+
+  --color-neon: #00f0ff;
+  --color-neon-dim: #00c4d0;
+  --color-neon-glow: #00f0ff33;
+  --color-neon-subtle: #00f0ff0d;
+
+  --color-amber-accent: #f5a623;
+  --color-emerald-accent: #34d399;
+  --color-rose-accent: #fb7185;
+  --color-violet-accent: #a78bfa;
+
+  --font-display: "Bricolage Grotesque", sans-serif;
+  --font-body: "Plus Jakarta Sans", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+}
+
+/* ─── Base Styles ─── */
+html {
+  background-color: var(--color-base-950);
+  color: var(--color-base-50);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -20%, #0e2a3a 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 100%, #1a0e2e 0%, transparent 50%),
+    var(--color-base-950);
+}
+
+/* Noise texture overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-base-500);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-base-400);
+}
+
+/* ─── Animations ─── */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in-scale {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 8px var(--color-neon-glow); }
+  50% { box-shadow: 0 0 20px var(--color-neon-glow), 0 0 40px #00f0ff15; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes progress-fill {
+  from { width: 0%; }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out both;
+}
+
+.animate-fade-in-scale {
+  animation: fade-in-scale 0.4s ease-out both;
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+/* Staggered children animation */
+.stagger-children > * {
+  animation: fade-in 0.4s ease-out both;
+}
+.stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-children > *:nth-child(2) { animation-delay: 60ms; }
+.stagger-children > *:nth-child(3) { animation-delay: 120ms; }
+.stagger-children > *:nth-child(4) { animation-delay: 180ms; }
+.stagger-children > *:nth-child(5) { animation-delay: 240ms; }
+.stagger-children > *:nth-child(6) { animation-delay: 300ms; }
+.stagger-children > *:nth-child(7) { animation-delay: 360ms; }
+.stagger-children > *:nth-child(8) { animation-delay: 420ms; }
+
+/* ─── Glass Card ─── */
+.glass-card {
+  background: linear-gradient(135deg, #ffffff06 0%, #ffffff02 100%);
+  border: 1px solid #ffffff0a;
+  backdrop-filter: blur(12px);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  border-color: #ffffff15;
+  background: linear-gradient(135deg, #ffffff0a 0%, #ffffff04 100%);
+}
+
+/* ─── Neon Glow Effects ─── */
+.neon-border {
+  border: 1px solid var(--color-neon);
+  box-shadow: 0 0 8px var(--color-neon-glow), inset 0 0 8px var(--color-neon-glow);
+}
+
+.neon-text {
+  color: var(--color-neon);
+  text-shadow: 0 0 10px var(--color-neon-glow);
+}
+
+/* ─── Form Inputs ─── */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="file"],
+textarea,
+select {
+  background: var(--color-base-800) !important;
+  border: 1px solid var(--color-base-600) !important;
+  color: var(--color-base-50) !important;
+  border-radius: 8px !important;
+  transition: all 0.2s ease !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--color-neon) !important;
+  box-shadow: 0 0 0 2px var(--color-neon-glow) !important;
+  outline: none !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--color-base-400) !important;
+}
+
+/* ─── Utility ─── */
+.text-gradient {
+  background: linear-gradient(135deg, var(--color-neon) 0%, var(--color-violet-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bg-grid {
+  background-image:
+    linear-gradient(#ffffff05 1px, transparent 1px),
+    linear-gradient(90deg, #ffffff05 1px, transparent 1px);
+  background-size: 40px 40px;
+}

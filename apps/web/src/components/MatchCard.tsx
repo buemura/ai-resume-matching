@@ -21,23 +21,36 @@ export default function MatchCard({ match, mode }: MatchCardProps) {
       ? `/resumes/${match.resume_id}`
       : `/jobs/${match.job_id}`;
 
+  const pct = Math.round(match.similarity_score * 100);
+
+  let barColor: string;
+  if (pct >= 80) barColor = "bg-emerald-accent";
+  else if (pct >= 60) barColor = "bg-amber-accent";
+  else if (pct >= 40) barColor = "bg-orange-400";
+  else barColor = "bg-rose-accent";
+
   return (
     <Link
       to={link}
-      className="block rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition hover:shadow-md"
+      className="glass-card block p-5 group hover:border-neon/20 transition-all duration-300"
     >
       <div className="flex items-center justify-between">
         <div>
-          <p className="font-medium text-gray-900">{title}</p>
-          <p className="text-sm text-gray-500">{subtitle}</p>
+          <p className="font-display font-semibold text-base-50 group-hover:text-neon transition-colors duration-200">
+            {title}
+          </p>
+          <p className="text-sm text-base-300 mt-0.5">{subtitle}</p>
         </div>
         <ScoreBadge score={match.similarity_score} />
       </div>
-      <div className="mt-3">
-        <div className="h-2 w-full rounded-full bg-gray-200">
+      <div className="mt-4">
+        <div className="h-1.5 w-full rounded-full bg-base-700 overflow-hidden">
           <div
-            className="h-2 rounded-full bg-indigo-500"
-            style={{ width: `${Math.round(match.similarity_score * 100)}%` }}
+            className={`h-full rounded-full ${barColor} transition-all duration-700`}
+            style={{
+              width: `${pct}%`,
+              animation: "progress-fill 1s ease-out",
+            }}
           />
         </div>
       </div>

@@ -19,16 +19,26 @@ export default function JobsList() {
   }, [page]);
 
   if (loading && page === 0) {
-    return <p className="text-gray-500">Loading jobs...</p>;
+    return (
+      <div className="flex items-center gap-3 text-base-300 animate-fade-in">
+        <div className="h-4 w-4 rounded-full border-2 border-neon/30 border-t-neon animate-spin" />
+        Loading jobs...
+      </div>
+    );
   }
 
   return (
-    <div>
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900">Jobs</h1>
+    <div className="animate-fade-in">
+      <div className="mb-8 flex items-center justify-between">
+        <div>
+          <h1 className="font-display text-3xl font-bold text-base-50 tracking-tight">
+            Jobs
+          </h1>
+          <p className="mt-1 text-base-300">Manage your job postings</p>
+        </div>
         <Link
           to="/jobs/new"
-          className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+          className="rounded-lg bg-neon px-5 py-2.5 text-sm font-semibold text-base-950 hover:bg-neon-dim transition-all duration-200 shadow-[0_0_15px_rgba(0,240,255,0.15)]"
         >
           Add Job
         </Link>
@@ -42,7 +52,7 @@ export default function JobsList() {
             render: (job) => (
               <Link
                 to={`/jobs/${job.id}`}
-                className="text-indigo-600 hover:underline"
+                className="text-neon hover:text-neon-dim transition-colors duration-200 font-medium"
               >
                 {job.title}
               </Link>
@@ -51,12 +61,18 @@ export default function JobsList() {
           {
             key: "company",
             header: "Company",
-            render: (job) => job.company,
+            render: (job) => (
+              <span className="text-base-200">{job.company}</span>
+            ),
           },
           {
             key: "created_at",
             header: "Created",
-            render: (job) => new Date(job.created_at).toLocaleDateString(),
+            render: (job) => (
+              <span className="font-mono text-base-300 text-xs">
+                {new Date(job.created_at).toLocaleDateString()}
+              </span>
+            ),
           },
         ]}
         data={jobs}

@@ -45,21 +45,23 @@ export default function TextForm({
   }
 
   return (
-    <div className="mx-auto max-w-2xl">
-      <h1 className="mb-6 text-2xl font-bold text-gray-900">{title}</h1>
+    <div className="mx-auto max-w-2xl animate-fade-in">
+      <h1 className="mb-8 font-display text-3xl font-bold text-base-50">
+        {title}
+      </h1>
 
       {error && (
-        <div className="mb-4 rounded-md bg-red-50 p-4 text-sm text-red-700">
+        <div className="mb-6 rounded-xl border border-rose-accent/30 bg-rose-accent/10 p-4 text-sm text-rose-accent">
           {error}
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-6">
         {fields.map((field) => (
           <div key={field.name}>
             <label
               htmlFor={field.name}
-              className="mb-1 block text-sm font-medium text-gray-700"
+              className="mb-2 block text-sm font-medium text-base-200"
             >
               {field.label}
             </label>
@@ -71,7 +73,7 @@ export default function TextForm({
                 placeholder={field.placeholder}
                 required={field.required}
                 rows={8}
-                className="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none"
+                className="w-full rounded-xl border border-base-600 bg-base-800 px-4 py-3 text-sm text-base-50 placeholder-base-400 focus:border-neon focus:ring-1 focus:ring-neon/30 focus:outline-none transition-all duration-200 resize-none"
               />
             ) : (
               <input
@@ -81,7 +83,7 @@ export default function TextForm({
                 onChange={(e) => handleChange(field.name, e.target.value)}
                 placeholder={field.placeholder}
                 required={field.required}
-                className="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none"
+                className="w-full rounded-xl border border-base-600 bg-base-800 px-4 py-3 text-sm text-base-50 placeholder-base-400 focus:border-neon focus:ring-1 focus:ring-neon/30 focus:outline-none transition-all duration-200"
               />
             )}
           </div>
@@ -90,7 +92,7 @@ export default function TextForm({
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-50"
+          className="w-full rounded-xl bg-neon px-5 py-3 text-sm font-semibold text-base-950 hover:bg-neon-dim transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50 shadow-[0_0_20px_rgba(0,240,255,0.15)] hover:shadow-[0_0_30px_rgba(0,240,255,0.25)]"
         >
           {loading ? "Submitting..." : submitLabel}
         </button>

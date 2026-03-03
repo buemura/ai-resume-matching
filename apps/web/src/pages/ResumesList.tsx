@@ -19,16 +19,26 @@ export default function ResumesList() {
   }, [page]);
 
   if (loading && page === 0) {
-    return <p className="text-gray-500">Loading resumes...</p>;
+    return (
+      <div className="flex items-center gap-3 text-base-300 animate-fade-in">
+        <div className="h-4 w-4 rounded-full border-2 border-neon/30 border-t-neon animate-spin" />
+        Loading resumes...
+      </div>
+    );
   }
 
   return (
-    <div>
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900">Resumes</h1>
+    <div className="animate-fade-in">
+      <div className="mb-8 flex items-center justify-between">
+        <div>
+          <h1 className="font-display text-3xl font-bold text-base-50 tracking-tight">
+            Resumes
+          </h1>
+          <p className="mt-1 text-base-300">Manage candidate resumes</p>
+        </div>
         <Link
           to="/resumes/new"
-          className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+          className="rounded-lg bg-neon px-5 py-2.5 text-sm font-semibold text-base-950 hover:bg-neon-dim transition-all duration-200 shadow-[0_0_15px_rgba(0,240,255,0.15)]"
         >
           Add Resume
         </Link>
@@ -42,7 +52,7 @@ export default function ResumesList() {
             render: (r) => (
               <Link
                 to={`/resumes/${r.id}`}
-                className="text-indigo-600 hover:underline"
+                className="text-neon hover:text-neon-dim transition-colors duration-200 font-medium"
               >
                 {r.candidate_name}
               </Link>
@@ -52,7 +62,7 @@ export default function ResumesList() {
             key: "content",
             header: "Preview",
             render: (r) => (
-              <span className="text-gray-500">
+              <span className="text-base-400">
                 {r.content.slice(0, 80)}
                 {r.content.length > 80 && "..."}
               </span>
@@ -61,7 +71,11 @@ export default function ResumesList() {
           {
             key: "created_at",
             header: "Created",
-            render: (r) => new Date(r.created_at).toLocaleDateString(),
+            render: (r) => (
+              <span className="font-mono text-base-300 text-xs">
+                {new Date(r.created_at).toLocaleDateString()}
+              </span>
+            ),
           },
         ]}
         data={resumes}

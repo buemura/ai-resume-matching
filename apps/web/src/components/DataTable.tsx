@@ -22,38 +22,41 @@ export default function DataTable<T>({
   hasMore,
 }: DataTableProps<T>) {
   return (
-    <div>
-      <div className="overflow-x-auto rounded-lg border border-gray-200 bg-white shadow-sm">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
+    <div className="animate-fade-in">
+      <div className="overflow-x-auto rounded-xl border border-base-600/50 bg-base-800/50 backdrop-blur-sm">
+        <table className="min-w-full divide-y divide-base-600/50">
+          <thead>
             <tr>
               {columns.map((col) => (
                 <th
                   key={col.key}
-                  className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
+                  className="px-6 py-4 text-left text-[11px] font-semibold uppercase tracking-widest text-base-300 font-body"
                 >
                   {col.header}
                 </th>
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-200">
+          <tbody className="divide-y divide-base-700/50">
             {data.length === 0 ? (
               <tr>
                 <td
                   colSpan={columns.length}
-                  className="px-6 py-8 text-center text-sm text-gray-500"
+                  className="px-6 py-12 text-center text-sm text-base-400"
                 >
                   No data found.
                 </td>
               </tr>
             ) : (
               data.map((item) => (
-                <tr key={keyExtractor(item)} className="hover:bg-gray-50">
+                <tr
+                  key={keyExtractor(item)}
+                  className="hover:bg-base-700/30 transition-colors duration-150"
+                >
                   {columns.map((col) => (
                     <td
                       key={col.key}
-                      className="whitespace-nowrap px-6 py-4 text-sm text-gray-900"
+                      className="whitespace-nowrap px-6 py-4 text-sm text-base-100"
                     >
                       {col.render(item)}
                     </td>
@@ -65,23 +68,22 @@ export default function DataTable<T>({
         </table>
       </div>
 
-      <div className="mt-4 flex items-center justify-between">
-        <p className="text-sm text-gray-700">
-          Showing {data.length} result{data.length !== 1 && "s"} (page{" "}
-          {page + 1})
+      <div className="mt-5 flex items-center justify-between">
+        <p className="text-sm text-base-400 font-mono">
+          {data.length} result{data.length !== 1 && "s"} — page {page + 1}
         </p>
         <div className="flex gap-2">
           <button
             onClick={() => onPageChange(page - 1)}
             disabled={page === 0}
-            className="rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-lg border border-base-600 bg-base-800 px-4 py-2 text-sm font-medium text-base-200 hover:bg-base-700 hover:border-base-500 transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-30"
           >
             Previous
           </button>
           <button
             onClick={() => onPageChange(page + 1)}
             disabled={!hasMore}
-            className="rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-lg border border-base-600 bg-base-800 px-4 py-2 text-sm font-medium text-base-200 hover:bg-base-700 hover:border-base-500 transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-30"
           >
             Next
           </button>
