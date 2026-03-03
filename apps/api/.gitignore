@@ -14,7 +14,7 @@ env/
 
 # Environment variables
 .env
-.env.*
+.env
 
 # IDE
 .idea/
